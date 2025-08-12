@@ -8,6 +8,7 @@ format:
     fig-align: center
 execute: 
   cache: false
+  keep-md: true
 editor: source
 ---
 
@@ -257,7 +258,7 @@ We'll use the `computeArea` function to get the summary estimates of the differe
 
 # Example usage:
 
-h5is <- "/Users/rnj/Library/CloudStorage/Dropbox/Work/DIFMagnitude/DATA/mm06.h5"
+h5is <- here::here("DATA","mm06.h5")
 itemis <- "VDMRE2Z"
 group1is <- "NHW"
 group2is <- "HISPSPAN"
