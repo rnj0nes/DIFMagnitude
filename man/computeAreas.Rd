@@ -7,17 +7,55 @@
 computeAreas(params, musigma, sd = NULL, cov_matrix = NULL)
 }
 \arguments{
-\item{params}{A numeric vector of parameters c(a1, b1, a2, b2)}
+\item{params}{A numeric vector \code{c(a1, b1, a2, b2)} where
+\code{a1, b1} are the intercept and slope of the reference group (group 1)
+and \code{a2, b2} are the intercept and slope of the focal group (group 2).}
 
-\item{musigma}{A numeric vector c(mu, sigma) for the latent trait distribution}
+\item{musigma}{A numeric vector \code{c(mu, sigma)} for the latent trait
+distribution used as the integration weight.}
 
-\item{sd}{Optional pooled standard deviation for standardization}
+\item{sd}{Optional numeric. Item-score SD used to standardize the area
+measures (Cohen's \eqn{d}-like).}
 
-\item{cov_matrix}{Optional covariance matrix for standard error computation}
+\item{cov_matrix}{Optional 4x4 numeric covariance matrix of \code{params}
+used to compute standard errors.}
 }
 \value{
-A list containing unsigned_area, signed_area, and their standardized and SE versions
+A named list with elements:
+\code{unsigned_area}, \code{signed_area},
+\code{std_unsigned_area}, \code{std_signed_area},
+\code{unsigned_se}, \code{signed_se},
+\code{std_unsigned_se}, \code{std_signed_se},
+\code{signed_area_rms}, \code{std_signed_area_rms},
+\code{signed_se_rms}, \code{std_signed_se_rms}.
 }
 \description{
-Compute DIF Magnitude Areas
+Computes weighted-area effect-size measures comparing two linear expected
+score functions \eqn{\mathrm{ESF}_g(\theta) = a_g + b_g\theta}, \eqn{g \in \{1, 2\}},
+under a normal latent-trait density \eqn{\phi(\theta; \mu, \sigma)}.
+}
+\details{
+Two signed area measures are returned:
+
+\describe{
+\item{\code{signed_area} (directional, default)}{
+The integrated difference between the focal and reference ESFs:
+\deqn{\int [\mathrm{ESF}_2(\theta) - \mathrm{ESF}_1(\theta)] \, \phi(\theta;\mu,\sigma)\,d\theta = (b_2 - b_1)\mu + (a_2 - a_1).}
+Positive values indicate that group 2 (focal) scores higher than
+group 1 (reference) on average across the latent distribution.
+}
+\item{\code{signed_area_rms} (RMS-difference rule, legacy)}{
+\deqn{\sqrt{\int_{\theta > x_c}\!\! \mathrm{diff}^2\,\phi\,d\theta} - \sqrt{\int_{\theta < x_c}\!\! \mathrm{diff}^2\,\phi\,d\theta},}
+where \eqn{x_c = (a_2 - a_1)/(b_1 - b_2)} and \eqn{\mathrm{diff} = (a_1 - a_2) + (b_1 - b_2)\theta}.
+This is the value returned by \code{signed_area} in DIFMagnitude
+versions \eqn{<} 0.2.0; it has been retained for backward
+compatibility but is \emph{not} a directional measure of which group scores
+higher and may disagree in sign with \code{signed_area} when the
+crossover lies in the tail of \eqn{\phi}.
+}
+}
+
+\code{unsigned_area} is the RMS discrepancy
+\eqn{\sqrt{\int (\mathrm{ESF}_1 - \mathrm{ESF}_2)^2 \phi\,d\theta}} and is
+unchanged from prior versions.
 }

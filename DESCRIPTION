@@ -1,6 +1,6 @@
 Package: DIFMagnitude
 Title: DIF Magnitude Measurement Functions
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person("Richard N", "Jones", 
            email = "rich_jones@brown.edu",
@@ -25,3 +25,4 @@ Suggests:
     testthat (>= 3.0.0)
 Additional_repositories:
     https://bioconductor.org/packages/release/bioc
+Config/testthat/edition: 3

@@ -7,13 +7,18 @@
 compute_areas(params, musigma, sd = NULL, cov_matrix = NULL)
 }
 \arguments{
-\item{params}{A numeric vector of parameters c(a1, b1, a2, b2)}
+\item{params}{A numeric vector \code{c(a1, b1, a2, b2)} where
+\code{a1, b1} are the intercept and slope of the reference group (group 1)
+and \code{a2, b2} are the intercept and slope of the focal group (group 2).}
 
-\item{musigma}{A numeric vector c(mu, sigma) for the latent trait distribution}
+\item{musigma}{A numeric vector \code{c(mu, sigma)} for the latent trait
+distribution used as the integration weight.}
 
-\item{sd}{Optional pooled standard deviation for standardization}
+\item{sd}{Optional numeric. Item-score SD used to standardize the area
+measures (Cohen's \eqn{d}-like).}
 
-\item{cov_matrix}{Optional covariance matrix for standard error computation}
+\item{cov_matrix}{Optional 4x4 numeric covariance matrix of \code{params}
+used to compute standard errors.}
 }
 \value{
 A list containing unsigned_area, signed_area, and their standardized and SE versions
